@@ -4,9 +4,8 @@ _Forked from [https://github.com/gtalarico/django-vue-template](https://github.c
 
 Changes to original:
 
-- Vue 3 in separate _frontend/_ directory
-- Updated dependencies
-- Do not require Pipenv
+- Vue 3 + TypeScript + TailwindCSS in separate [frontend](./frontend) directory
+- Does not require Pipenv
 
 Out of the box, Django will serve the application entry point (`index.html` + bundled assets) at `/` ,
 data at `/api/`, and static files at `/static/`. Django admin panel is also available at `/admin/` and can be extended as needed.
@@ -16,7 +15,7 @@ data at `/api/`, and static files at `/static/`. Django admin panel is also avai
 - Django
 - Django REST framework
 - Django Whitenoise, CDN Ready
-- Vue 3 project with TypeScript and Vue Router
+- Vue 3 project with TypeScript, Vue Router, Vuex, and TailwindCSS
 - Gunicorn
 - Configuration for Heroku Deployment
 
@@ -38,7 +37,7 @@ Before getting started you should have the following installed and running:
 
 ## Setup Template
 
-```
+```bash
 $ git clone https://github.com/ksaaskil/django-vue3-template
 $ cd django-vue3-template
 ```
@@ -90,7 +89,7 @@ $ python manage.py runserver
 
 ### Deploy to Heroku
 
-```
+```bash
 $ heroku create your-app-name
 $ git remote -v  # Check your git remotes for heroku
 $ heroku buildpacks:add --index 1 heroku/nodejs
