@@ -7,7 +7,7 @@
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
-    "postinstall": "vue-cli-service build"
+    "postinstall": "npx vue-cli-service build"
   },
   "dependencies": {
     "core-js": "^3.6.5",
