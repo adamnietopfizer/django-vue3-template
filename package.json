@@ -1,0 +1,21 @@
+{
+  "name": "django-vue-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "postinstall": "cd frontend && yarn install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ksaaskil/django-vue-template.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ksaaskil/django-vue-template/issues"
+  },
+  "homepage": "https://github.com/ksaaskil/django-vue-template#readme"
+}
