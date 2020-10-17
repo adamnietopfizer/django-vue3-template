@@ -5,6 +5,9 @@
   "main": "index.js",
   "dependencies": {},
   "devDependencies": {},
+  "engines": {
+    "node": "12.x"
+  },
   "scripts": {
     "postinstall": "cd frontend && yarn install"
   },
@@ -13,9 +16,5 @@
     "url": "git+https://github.com/ksaaskil/django-vue-template.git"
   },
   "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ksaaskil/django-vue-template/issues"
-  },
-  "homepage": "https://github.com/ksaaskil/django-vue-template#readme"
+  "license": "MIT"
 }
