@@ -10,7 +10,7 @@
     "yarn": "1.12.3"
   },
   "scripts": {
-    "postinstall": "cd frontend && yarn install"
+    "postinstall": "cd frontend && yarn install && yarn build"
   },
   "repository": {
     "type": "git",
