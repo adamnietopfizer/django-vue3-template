@@ -1,5 +1,5 @@
 {
-  "name": "django-vue-template",
+  "name": "django-vue-3-template",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ksaaskil/django-vue-template.git"
+    "url": "git+https://github.com/ksaaskil/django-vue-3-template.git"
   },
   "author": "",
   "license": "MIT"

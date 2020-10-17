@@ -1,7 +1,4 @@
-# Modern Django Vue Template (Oct 2020)
-
-![Vue Logo](/src/assets/logo-vue.png "Vue Logo")
-![Django Logo](/src/assets/logo-django.png "Django Logo")
+# Modern Django Vue 3 Template (Oct 2020)
 
 _Forked from [https://github.com/gtalarico/django-vue-template](https://github.com/gtalarico/django-vue-template)._
 
@@ -19,9 +16,7 @@ data at `/api/`, and static files at `/static/`. Django admin panel is also avai
 - Django
 - Django REST framework
 - Django Whitenoise, CDN Ready
-- Vue CLI 3
-- Vue Router
-- Vuex
+- Vue 3 project with TypeScript and Vue Router
 - Gunicorn
 - Configuration for Heroku Deployment
 
