@@ -112,14 +112,13 @@ $ python manage.py runserver
 
 ```
 $ heroku create django-vue-template-demo
-# Check your git remotes for heroku
-$ git remote -v
-$ heroku git:remote --app django-vue-template-demo
+$ git remote -v  # Check your git remotes for heroku
 $ heroku buildpacks:add --index 1 heroku/nodejs
 $ heroku buildpacks:add --index 2 heroku/python
 $ heroku addons:create heroku-postgresql:hobby-dev
 $ heroku config:set DJANGO_SETTINGS_MODULE=backend.settings.prod
 $ heroku config:set DJANGO_SECRET_KEY='...(your django SECRET_KEY value)...'
+$ heroku config:set YARN_PRODUCTION=false  # Building dist/ requires Vue CLI service
 # $ heroku config:set DATABASE_URL=''  # If using database outside Heroku
 $ git push heroku
 ```
