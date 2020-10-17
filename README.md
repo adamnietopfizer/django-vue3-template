@@ -108,17 +108,19 @@ $ python manage.py runserver
 
 - Set `ALLOWED_HOSTS` on [`backend.settings.prod`](/backend/settings/prod.py)
 
-### Heroku Server
+### Deploy to Heroku
 
 ```
-$ heroku apps:create django-vue-template-demo
+$ heroku create django-vue-template-demo
+# Check your git remotes for heroku
+$ git remote -v
 $ heroku git:remote --app django-vue-template-demo
 $ heroku buildpacks:add --index 1 heroku/nodejs
 $ heroku buildpacks:add --index 2 heroku/python
 $ heroku addons:create heroku-postgresql:hobby-dev
 $ heroku config:set DJANGO_SETTINGS_MODULE=backend.settings.prod
 $ heroku config:set DJANGO_SECRET_KEY='...(your django SECRET_KEY value)...'
-
+# $ heroku config:set DATABASE_URL=''  # If using database outside Heroku
 $ git push heroku
 ```
 
@@ -126,13 +128,9 @@ Heroku's nodejs buildpack will handle install for all the dependencies from the 
 It will then trigger the `postinstall` command which calls `yarn build`.
 This will create the bundled `dist` folder which will be served by whitenoise.
 
-The python buildpack will detect the [`Pipfile`](/Pipfile) and install all the python dependencies.
+The python buildpack will detect the [`requirements.txt`](/requirements.txt) and install all the python dependencies.
 
-The [`Procfile`](/Procfile) will run Django migrations and then launch Django'S app using gunicorn, as recommended by heroku.
-
-##### Heroku One Click Deploy
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/gtalarico/django-vue-template)
+The [`Procfile`](/Procfile) will run Django migrations and then launch Django app using gunicorn, as recommended by heroku.
 
 ## Static Assets
 
