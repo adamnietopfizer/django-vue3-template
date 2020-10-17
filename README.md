@@ -34,34 +34,35 @@ data at `/api/`, and static files at `/static/`. Django admin panel is also avai
 Before getting started you should have the following installed and running:
 
 - [x] Yarn - [instructions](https://yarnpkg.com/en/docs/install)
-- [x] Vue CLI 3 - [instructions](https://cli.vuejs.org/guide/installation.html)
 - [x] Python 3 - [instructions](https://wiki.python.org/moin/BeginnersGuide)
 
 ## Setup Template
 
 ```
 $ git clone https://github.com/ksaaskil/django-vue3-template
-$ cd django-vue-template
+$ cd django-vue3-template
 ```
 
 Setup
 
-```
+```bash
 $ yarn install
-# Create virtual environment first
+# Create virtual environment before the next command
 $ pip install -r requirements.txt
 $ python manage.py migrate
 ```
 
 ## Running Development Servers
 
-```
+Start the backend:
+
+```bash
 $ python manage.py runserver
 ```
 
-From another tab in the same directory:
+Start the frontend:
 
-```
+```bash
 $ cd frontend
 $ yarn serve
 ```
@@ -71,11 +72,11 @@ and static files will be served from [`localhost:8000`](http://localhost:8000/).
 
 The dual dev server setup allows you to take advantage of
 webpack's development server with hot module replacement.
-Proxy config in [`vue.config.js`](/frontend/vue.config.js) is used to route the requests
+Proxy config in [`frontend/vue.config.js`](/frontend/vue.config.js) is used to route the requests
 back to django's API on port 8000.
 
 If you would rather run a single dev server, you can run Django's
-development server only on `:8000`, and you have to build the Vue app first
+development server only on `:8000`, but you have to build the Vue app first (`yarn`)
 and the page will not reload on changes.
 
 ```
@@ -90,7 +91,7 @@ $ python manage.py runserver
 ### Deploy to Heroku
 
 ```
-$ heroku create django-vue-template-demo
+$ heroku create your-app-name
 $ git remote -v  # Check your git remotes for heroku
 $ heroku buildpacks:add --index 1 heroku/nodejs
 $ heroku buildpacks:add --index 2 heroku/python
