@@ -1,23 +1,32 @@
-# Modern Django Vue 3 Template (Oct 2020)
+# Django + Vue 3 + Heroku Template (Oct 2020)
 
-_Forked from [https://github.com/gtalarico/django-vue-template](https://github.com/gtalarico/django-vue-template)._
+Simplest way to deploy a webapp with backend and dedicated frontend to Heroku.
 
-Changes to original:
+__Forked from [https://github.com/gtalarico/django-vue-template](https://github.com/gtalarico/django-vue-template).__
+
+Changes to the original template:
 
 - Vue 3 + TypeScript + TailwindCSS in separate [frontend](./frontend) directory
 - Does not require Pipenv
+- More detailed instructions for deploying to Heroku
 
 Out of the box, Django will serve the application entry point (`index.html` + bundled assets) at `/` ,
 data at `/api/`, and static files at `/static/`. Django admin panel is also available at `/admin/` and can be extended as needed.
 
-### Includes
+### Features
 
-- Django
-- Django REST framework
-- Django Whitenoise, CDN Ready
-- Vue 3 project with TypeScript, Vue Router, Vuex, and TailwindCSS
-- Gunicorn
+- [Django](https://www.djangoproject.com/) backend
+- [Whitenoise](http://whitenoise.evans.io/en/stable/) for serving static assets, CDN Ready
+- [Vue 3](https://vuejs.org/) frontend with TypeScript, Vue Router, Vuex, and TailwindCSS
+- [Gunicorn](https://gunicorn.org/) as HTTP server
 - Configuration for Heroku Deployment
+
+
+### Known issues
+
+- [ ] Unit tests don't work yet in Vue 3
+- [ ] No `pytest` tests yet in Django
+- [ ] Get rid of Django REST framework (?)
 
 ### Template Structure
 
@@ -32,28 +41,28 @@ data at `/api/`, and static files at `/static/`. Django admin panel is also avai
 
 Before getting started you should have the following installed and running:
 
-- [x] Yarn - [instructions](https://yarnpkg.com/en/docs/install)
-- [x] Python 3 - [instructions](https://wiki.python.org/moin/BeginnersGuide)
+- [Node.js](https://nodejs.org/en/)
+- [Yarn](https://yarnpkg.com/en/docs/install)
+- [Python 3](https://wiki.python.org/moin/BeginnersGuide) + [virtual environment](https://docs.python.org/3/library/venv.html)
 
-## Setup Template
+## Setup
 
 ```bash
 $ git clone https://github.com/ksaaskil/django-vue3-template
 $ cd django-vue3-template
 ```
 
-Setup
+Install dependencies:
 
 ```bash
 $ yarn install
-# Create virtual environment before the next command
 $ pip install -r requirements.txt
-$ python manage.py migrate
+$ python manage.py migrate  # Prepare local Django database
 ```
 
 ## Running Development Servers
 
-Start the backend:
+Start the Django backend:
 
 ```bash
 $ python manage.py runserver
@@ -78,8 +87,8 @@ If you would rather run a single dev server, you can run Django's
 development server only on `:8000`, but you have to build the Vue app first (`yarn`)
 and the page will not reload on changes.
 
-```
-$ yarn
+```bash
+$ yarn  # Builds a dist/ folder at the root of the repository
 $ python manage.py runserver
 ```
 
@@ -89,24 +98,27 @@ $ python manage.py runserver
 
 ### Deploy to Heroku
 
+Sign up at [Heroku](https://www.heroku.com/), install [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) and run the following commands at the root of the repository:
+
 ```bash
+$ heroku login  # If you haven't logged in yet in the CLI
 $ heroku create your-app-name
-$ git remote -v  # Check your git remotes for heroku
-$ heroku buildpacks:add --index 1 heroku/nodejs
-$ heroku buildpacks:add --index 2 heroku/python
-$ heroku addons:create heroku-postgresql:hobby-dev
-$ heroku config:set DJANGO_SETTINGS_MODULE=backend.settings.prod
-$ heroku config:set DJANGO_SECRET_KEY='...(your django SECRET_KEY value)...'
-$ heroku config:set YARN_PRODUCTION=false  # Building dist/ requires Vue CLI service
-$ heroku config:set DATABASE_URL=''  # If using database outside Heroku
-$ git push heroku
+$ git remote -v  # Note how a git remote 'heroku' was created
+$ heroku buildpacks:add --index 1 heroku/nodejs  # For building Vue app
+$ heroku buildpacks:add --index 2 heroku/python  # For building Django app
+$ heroku addons:create heroku-postgresql:hobby-dev  # Use Heroku's Postgres DB, requires adding payment details in Heroku
+$ heroku config:set DJANGO_SETTINGS_MODULE=backend.settings.prod  # Use persistent database, set Debug=False, etc.
+$ heroku config:set DJANGO_SECRET_KEY='...(your django SECRET_KEY value)...'  # For Django's cryptographic signing 
+$ heroku config:set YARN_PRODUCTION=false  # Building Vue app requires Vue CLI service which is a dev dependency
+$ heroku config:set DATABASE_URL=''  # If using database outside of Heroku
+$ git push heroku  # Deploy to Heroku
 ```
 
-Heroku's nodejs buildpack will build the frontend via the auxiliary [`package.json`](/package.json) file.
-It will then trigger a command which calls `yarn build` in the frontend.
-This will create the bundled `dist` folder which will be served by whitenoise.
+Heroku's [Node.js buildpack](https://devcenter.heroku.com/articles/nodejs-support) will build the frontend via the auxiliary [`package.json`](/package.json) file.
+Running `install` triggers a command that calls `yarn install` and `yarn build` in the `frontend` directory.
+This will create the bundled `dist` folder at the root of the repository, which is served by whitenoise in Django.
 
-The python buildpack will detect the [`requirements.txt`](/requirements.txt) and install all the python dependencies.
+The [Python buildpack](https://devcenter.heroku.com/articles/python-support) will detect the [`requirements.txt`](/requirements.txt) and install all the Python dependencies.
 
 The [`Procfile`](/Procfile) will run Django migrations and then launch Django app using gunicorn.
 
